@@ -35,6 +35,7 @@ class Brain(base.Brain):
             self.camera.capture
             image = self.camera.image_array
             im = Image.fromarray(image)
+            im = im.convert("RGB")
             im.save("./test_image1.jpeg")
             
 
