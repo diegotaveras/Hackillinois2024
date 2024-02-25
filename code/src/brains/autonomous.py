@@ -44,7 +44,8 @@ class Brain(base.Brain):
             upper_green = np.array([80, 139, 80])
 
             for distance_sensor in self.distance_sensors:
-                if distance_sensor.distance < 0.25:
+                # Modify for sensor distance sensitivity
+                if distance_sensor.distance < 0.5:
                     self.vehicle.stop()
                     stop = True
 
