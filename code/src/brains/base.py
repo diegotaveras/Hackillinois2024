@@ -1,7 +1,7 @@
 from typing import TypedDict
 from .. import vehicle as vehicle_module, camera as camera_module, distance_sensor as distance_sensor_module, led as led_module, switch as switch_module
 import time
-import argparse
+
 
 class Config(TypedDict):
     sample_hz: int
@@ -19,7 +19,7 @@ class Brain:
     leds: list[led_module.LED]
     sample_hz: int
     loop_counter: int
-    sys_args: list[str]
+    spin_speed: bool
 
     def __init__(self, config: Config,
                  camera: camera_module.Camera,
@@ -27,7 +27,7 @@ class Brain:
                  leds: list[led_module.LED],
                  switches: list[switch_module.Switch],
                  vehicle: vehicle_module.Vehicle,
-                 sys_args: str
+                 spin_speed: bool
                  ):
 
 
@@ -38,20 +38,9 @@ class Brain:
         self.leds = leds
         self.switches = switches
         self.vehicle = vehicle
-        parser = argparse.ArgumentParser(
-                    prog='ProgramName',
-                    description='What the program does',
-                    epilog='Text at the bottom of help')
-        # parser.add_argument(sys_args)           # positional argument
-        
         
 
-        parser.add_argument('--w', dest='w',action='store_true')      # option that takes a value
-        
-
-        args = parser.parse_args(sys_args[1:])
-
-        self.spin_duration = carpet_const if not args.w else wood_const    
+        self.spin_duration = carpet_const if not spin_speed else wood_const    
 
         self.running = True
         self.sample_hz = config['sample_hz']

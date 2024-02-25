@@ -2,6 +2,7 @@ from typing import TypedDict
 from src import params, vehicle as vehicle_module, camera as camera_module, distance_sensor as distance_sensor_module, led as led_module, switch as switch_module
 from src.brains import ModuleTypes as BrainModuleTypes, Types as BrainTypes
 import json
+import argparse
 import sys
 
 
@@ -52,8 +53,20 @@ brain_module = BrainTypes[brain_type]
 
 # initialize a brain instance from whichever brain module you loaded
 
+parser = argparse.ArgumentParser(
+prog='ProgramName',
+description='What the program does',
+epilog='Text at the bottom of help')
+# parser.add_argument(sys_args)           # positional argument
+
+
+
+parser.add_argument('-w', dest='w',action='store_true')      # option that takes a value
+
+args = parser.parse_args()
+
 brain = brain_module.Brain(
-    brain_config, camera, distance_sensors, leds, switches, vehicle, sys.argv)
+    brain_config, camera, distance_sensors, leds, switches, vehicle, args.w)
 
 # Tell the brain to drive the vehicle
 brain.run()
