@@ -34,44 +34,44 @@ class Brain(base.Brain):
 
         start_time = time.time()
 
-        while time.time() - start_time < total_seconds:
+        # while time.time() - start_time < total_seconds:
             # if anything is detected by the sensors, stop the car
-            stop = False
-            #47,89,56 orig color
-            lower_green = np.array([0,39,6])
-            upper_green = np.array([80, 139, 80])
+        stop = False
+        #47,89,56 orig color
+        lower_green = np.array([0,39,6])
+        upper_green = np.array([80, 139, 80])
 
-            for distance_sensor in self.distance_sensors:
-                # Modify for sensor distance sensitivity
-                if distance_sensor.distance < 0.5:
-                    self.vehicle.stop()
-                    stop = True
+        for distance_sensor in self.distance_sensors:
+            # Modify for sensor distance sensitivity
+            if distance_sensor.distance < 0.5:
+                self.vehicle.stop()
+                stop = True
 
-            if stop == True: 
-                self.vehicle.pivot_right(0.1)
-                
-                self.camera.capture
-                image = self.camera.image_array
-                im = Image.fromarray(image)
-                im = im.convert("RGB")
-                im.save("./test_image1.jpeg")
-
-
-                image = cv2.imread('test_image1.jpeg')
-
-                mask = cv2.inRange(image, lower_green, upper_green)
-                detected_output = cv2.bitwise_and(image, image, mask = mask)
-                # Corrects upside down camera to right side up
-                detected_output = cv2.rotate(detected_output, cv2.ROTATE_180)
-                cv2.imshow("green color detection", detected_output)
-                cv2.waitKey(0)
-                print("max value" + max(detected_output.data))
-
-                
+        if stop == True: 
+            self.vehicle.pivot_right(0.1)
+            
+            self.camera.capture
+            image = self.camera.image_array
+            im = Image.fromarray(image)
+            im = im.convert("RGB")
+            im.save("./test_image1.jpeg")
 
 
+            image = cv2.imread('test_image1.jpeg')
 
-                # cv2.inRange(image, green_boundary)
+            mask = cv2.inRange(image, lower_green, upper_green)
+            detected_output = cv2.bitwise_and(image, image, mask = mask)
+            # Corrects upside down camera to right side up
+            detected_output = cv2.rotate(detected_output, cv2.ROTATE_180)
+            cv2.imshow("green color detection", detected_output)
+            cv2.waitKey(0)
+            print("max value" + max(detected_output.data))
+
+            
+
+
+
+            # cv2.inRange(image, green_boundary)
 
 
 
