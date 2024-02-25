@@ -34,7 +34,8 @@ class Brain(base.Brain):
             
             image = self.camera.capture
             im = Image.fromarray(image)
-            im.save("test_image1.jpeg")
+            im.save("./test_image1.jpeg")
+            
 
 
 
