@@ -40,7 +40,7 @@ class Brain:
         self.vehicle = vehicle
         
 
-        self.spin_duration = carpet_const if not spin_speed else wood_const    
+        self.spin_speed = carpet_const if not spin_speed else wood_const    
 
         self.running = True
         self.sample_hz = config['sample_hz']
