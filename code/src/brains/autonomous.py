@@ -32,7 +32,8 @@ class Brain(base.Brain):
         if stop == True: 
             self.vehicle.pivot_right(0.1)
             
-            image = self.camera.capture
+            self.camera.capture
+            image = self.camera.image_array
             im = Image.fromarray(image)
             im.save("./test_image1.jpeg")
             
