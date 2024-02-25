@@ -22,6 +22,7 @@ John Deere | HackIllinois
 <br>
 
 # Table of Contents
+- [Project Description](#project-description)
 
 - [Prompt](#prompt)
   - [Submission Criteria](#submission-criteria)
@@ -64,6 +65,14 @@ John Deere | HackIllinois
 - [Computer Vision Models](#computer-vision-models)
 
 <br>
+
+# Project Description
+
+<p align="center">
+  <strong>Search and Rescue Robot</strong>
+</p>
+
+TBD
 
 # Prompt
 
