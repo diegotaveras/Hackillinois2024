@@ -1,7 +1,8 @@
 from . import base
 from numpy import ndarray
 from PIL import Image
-
+import cv2
+import numpy as np
 
 class Config(base.Config):
     pass
@@ -22,7 +23,9 @@ class Brain(base.Brain):
         
         # if anything is detected by the sensors, stop the car
         stop = False
-
+        #47,89,56 orig color
+        lower_green = np.array([0,39,6])
+        upper_green = np.array([80, 139, 80])
 
         for distance_sensor in self.distance_sensors:
             if distance_sensor.distance < 0.25:
@@ -37,7 +40,20 @@ class Brain(base.Brain):
             im = Image.fromarray(image)
             im = im.convert("RGB")
             im.save("./test_image1.jpeg")
+
+
+            image = cv2.imread('test_image1.jpeg')
+
+            mask = cv2.inRange(image, lower_green, upper_green)
+            detected_output = cv2.bitwise_and(image, image, mask = mask)
+            cv2.imshow("green color detection", detected_output)
+            cv2.waitKey(0)
+
             
+
+
+
+            # cv2.inRange(image, green_boundary)
 
 
 
