@@ -2,6 +2,7 @@ from typing import TypedDict
 from src import params, vehicle as vehicle_module, camera as camera_module, distance_sensor as distance_sensor_module, led as led_module, switch as switch_module
 from src.brains import ModuleTypes as BrainModuleTypes, Types as BrainTypes
 import json
+import sys
 
 
 class Config(TypedDict):
@@ -50,8 +51,9 @@ brain_config = {**config['brains']['base'], **config['brains'][brain_type]}
 brain_module = BrainTypes[brain_type]
 
 # initialize a brain instance from whichever brain module you loaded
+
 brain = brain_module.Brain(
-    brain_config, camera, distance_sensors, leds, switches, vehicle)
+    brain_config, camera, distance_sensors, leds, switches, vehicle, sys.argv)
 
 # Tell the brain to drive the vehicle
 brain.run()
