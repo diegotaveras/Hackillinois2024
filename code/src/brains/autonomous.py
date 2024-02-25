@@ -41,7 +41,7 @@ class Brain(base.Brain):
 
         for distance_sensor in self.distance_sensors:
             # Modify for sensor distance sensitivity
-            if distance_sensor.distance < 0.5:
+            if distance_sensor.distance < 0.25:
                 self.vehicle.stop()
                 stop = True
 
