@@ -45,10 +45,12 @@ class Brain:
         # parser.add_argument(sys_args)           # positional argument
         
         
+
+        parser.add_argument('--w', dest='w',action='store_true')      # option that takes a value
+        
+
         args = parser.parse_args(sys_args[1:])
 
-        parser.add_argument('w', dest='w',action='store_true')      # option that takes a value
-        
         self.spin_duration = carpet_const if not args.w else wood_const    
 
         self.running = True
