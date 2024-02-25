@@ -2,7 +2,7 @@ from . import base
 from numpy import ndarray
 from PIL import Image
 import cv2
-import time
+import random
 import numpy as np
 import signal
 
@@ -21,51 +21,60 @@ class Brain(base.Brain):
 
 
     def logic(self):
-        """If anything is detected by the distance_sensors, stop the car"""
-        
-
+        # For exiting the program
         def signal_handler(signal, frame):
             self.vehicle.stop()
             print("You pressed Ctrl+C - or killed me with -2")
             exit(0)
 
-        # while time.time() - start_time < total_seconds:
-
         signal.signal(signal.SIGINT, signal_handler)
 
-            # if anything is detected by the sensors, stop the car
-        stop = False
-        #47,89,56 orig color
+        # Shades of green bounds in HSV
         lower_green = np.array([36,0,0])
         upper_green = np.array([86, 255, 255])
 
+        self.vehicle.drive_forward()
+        
         for distance_sensor in self.distance_sensors:
-            # Modify for sensor distance sensitivity
-            # idk man
             if distance_sensor.distance < 1:
                 self.vehicle.stop()
-                stop = True
+                # Take a picture
+                self.camera.capture
+                image = self.camera.image_array
+                
+                if image is None:
+                    print("No image found")
+                    continue
+                
+                im = Image.fromarray(image)
+                im = im.convert("RGB")
+                im.save("./test_image1.jpeg")
 
-        if stop == True: 
-            self.vehicle.pivot_right(0.1)
-            
-            self.camera.capture
-            image = self.camera.image_array
-            im = Image.fromarray(image)
-            im = im.convert("RGB")
-            im.save("./test_image1.jpeg")
 
+                image = cv2.imread('test_image1.jpeg')
+                hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+                mask = cv2.inRange(hsv_image, lower_green, upper_green)
+                # Image Contouring
+                contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                min_area = 1000  # Minimum area to be considered a cap
+                max_area = 10000  # Maximum area to be considered a cap
+                cap_contours = [cnt for cnt in contours if min_area < cv2.contourArea(cnt) < max_area]
+                # Check if a cap (target) is present
+                is_cap_present = len(cap_contours) > 0
+                
+                if (is_cap_present):
+                    self.vehicle.stop()
+                    detected_output = cv2.bitwise_and(image, image, mask = mask)
+                    # Corrects upside down camera to right side up
+                    detected_output = cv2.rotate(detected_output, cv2.ROTATE_180)
+                    cv2.imshow("green color detection", detected_output)
+                    cv2.waitKey(0)
+                    cv2.destroyAllWindows()
+                    # Stop checking for caps
+                    break
 
-            image = cv2.imread('test_image1.jpeg')
-            hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-            mask = cv2.inRange(hsv_image, lower_green, upper_green)
-            detected_output = cv2.bitwise_and(image, image, mask = mask)
-            # Corrects upside down camera to right side up
-            detected_output = cv2.rotate(detected_output, cv2.ROTATE_180)
-            cv2.imshow("green color detection", detected_output)
-            cv2.waitKey(0)
-            #print("max value" + max(detected_output.data))
-
-            # cv2.inRange(image, green_boundary)
-        if not stop:
-            self.vehicle.drive_forward()
+                else:
+                    #Spin right if no cap is detected
+                    angle = random.uniform(0.1, 0.3)
+                    self.vehicle.pivot_right(angle)
+                    self.vehicle.drive_forward()
