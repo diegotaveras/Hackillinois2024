@@ -39,6 +39,8 @@ class Brain(base.Brain):
         for distance_sensor in self.distance_sensors:
             if distance_sensor.distance < 0.75:
                 self.vehicle.stop()
+                # Give time for camera to stop spinning for picture
+                sleep(0.5)
                 # Take a picture
                 self.camera.capture
                 image = self.camera.image_array
