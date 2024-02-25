@@ -28,13 +28,15 @@ class Brain(base.Brain):
             self.vehicle.stop()
             print("You pressed Ctrl+C - or killed me with -2")
             exit(0)
-        signal.signal(signal.SIGINT, signal_handler)
 
         total_seconds = 60
 
         start_time = time.time()
 
         while time.time() - start_time < total_seconds:
+
+            signal.signal(signal.SIGINT, signal_handler)
+
             # if anything is detected by the sensors, stop the car
             stop = False
             #47,89,56 orig color
