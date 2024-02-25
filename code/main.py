@@ -53,20 +53,20 @@ brain_module = BrainTypes[brain_type]
 
 # initialize a brain instance from whichever brain module you loaded
 
-parser = argparse.ArgumentParser(
-prog='ProgramName',
-description='What the program does',
-epilog='Text at the bottom of help')
-# parser.add_argument(sys_args)           # positional argument
+# parser = argparse.ArgumentParser(
+# prog='ProgramName',
+# description='What the program does',
+# epilog='Text at the bottom of help')
+# # parser.add_argument(sys_args)           # positional argument
 
 
 
-parser.add_argument('-w', dest='w',action='store_true')      # option that takes a value
+# parser.add_argument('-w', dest='w',action='store_true')      # option that takes a value
 
-args = parser.parse_args()
+# args = parser.parse_args()
 
 brain = brain_module.Brain(
-    brain_config, camera, distance_sensors, leds, switches, vehicle, args.w)
+    brain_config, camera, distance_sensors, leds, switches, vehicle)
 
 # Tell the brain to drive the vehicle
 brain.run()

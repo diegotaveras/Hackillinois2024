@@ -13,7 +13,7 @@ class Brain(base.Brain):
 
     def __init__(self, config: Config, *arg):
         super().__init__(config, *arg)
-        self.spin_speed = base.Brain.spin_speed
+        # self.spin_speed = base.Brain.spin_speed
 
 
 
@@ -30,7 +30,7 @@ class Brain(base.Brain):
                 stop = True
 
         if stop == True: 
-            self.vehicle.pivot_right(self.spin_speed)
+            self.vehicle.pivot_right(0.1)
             
             image = self.camera.capture
             im = Image.fromarray(image)

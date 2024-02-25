@@ -19,7 +19,7 @@ class Brain:
     leds: list[led_module.LED]
     sample_hz: int
     loop_counter: int
-    spin_speed: bool
+    # spin_speed: bool
 
     def __init__(self, config: Config,
                  camera: camera_module.Camera,
@@ -27,12 +27,12 @@ class Brain:
                  leds: list[led_module.LED],
                  switches: list[switch_module.Switch],
                  vehicle: vehicle_module.Vehicle,
-                 spin_speed: bool
+                #  spin_speed: bool
                  ):
 
 
-        wood_const = 0.1
-        carpet_const = 0.5
+        # wood_const = 0.1
+        # carpet_const = 0.5
         self.camera = camera
         self.distance_sensors = distance_sensors
         self.leds = leds
@@ -40,7 +40,7 @@ class Brain:
         self.vehicle = vehicle
         
 
-        self.spin_speed = carpet_const if not spin_speed else wood_const    
+        # self.spin_speed = carpet_const if not spin_speed else wood_const    
 
         self.running = True
         self.sample_hz = config['sample_hz']
