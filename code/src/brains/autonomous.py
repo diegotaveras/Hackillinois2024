@@ -29,10 +29,6 @@ class Brain(base.Brain):
             print("You pressed Ctrl+C - or killed me with -2")
             exit(0)
 
-        total_seconds = 60
-
-        start_time = time.time()
- 
         # while time.time() - start_time < total_seconds:
 
         signal.signal(signal.SIGINT, signal_handler)
@@ -67,7 +63,7 @@ class Brain(base.Brain):
             detected_output = cv2.rotate(detected_output, cv2.ROTATE_180)
             cv2.imshow("green color detection", detected_output)
             cv2.waitKey(0)
-            print("max value" + max(detected_output.data))
+            #print("max value" + max(detected_output.data))
 
             # cv2.inRange(image, green_boundary)
         if not stop:
