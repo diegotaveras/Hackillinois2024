@@ -5,6 +5,7 @@ import cv2
 import random
 import numpy as np
 import signal
+from time import sleep
 
 class Config(base.Config):
     pass
@@ -75,6 +76,8 @@ class Brain(base.Brain):
 
                 else:
                     #Spin right if no cap is detected
-                    angle = random.uniform(0.1, 0.3)
-                    self.vehicle.pivot_right(angle)
+                    spin_time  = random.uniform(1, 2)
+                    # Max spin speed
+                    self.vehicle.pivot_right(1)
+                    sleep(spin_time)
                     self.vehicle.drive_forward()
