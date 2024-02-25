@@ -60,6 +60,8 @@ class Brain(base.Brain):
 
                 mask = cv2.inRange(image, lower_green, upper_green)
                 detected_output = cv2.bitwise_and(image, image, mask = mask)
+                # Corrects upside down camera to right side up
+                detected_output = cv2.rotate(detected_output, cv2.ROTATE_180)
                 cv2.imshow("green color detection", detected_output)
                 cv2.waitKey(0)
                 print("max value" + max(detected_output.data))
