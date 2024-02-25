@@ -34,9 +34,8 @@ class Brain(base.Brain):
         start_time = time.time()
  
         # while time.time() - start_time < total_seconds:
-        while time.time() - start_time < total_seconds:
 
-            signal.signal(signal.SIGINT, signal_handler)
+        signal.signal(signal.SIGINT, signal_handler)
 
             # if anything is detected by the sensors, stop the car
         stop = False
