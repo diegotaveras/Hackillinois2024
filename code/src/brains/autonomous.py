@@ -31,7 +31,7 @@ class Brain(base.Brain):
         signal.signal(signal.SIGINT, signal_handler)
 
         # Shades of green bounds in HSV
-        lower_green = np.array([35,50,50])
+        lower_green = np.array([35,0, 0])
         upper_green = np.array([86, 255, 255])
 
         self.vehicle.drive_forward()
