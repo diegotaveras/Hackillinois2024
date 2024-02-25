@@ -1,7 +1,7 @@
 {
   "brains": {
     "base": {
-      "sample_hz": 10
+      "sample_hz": 25
     },
     "human_driver": {},
     "autonomous": {}
