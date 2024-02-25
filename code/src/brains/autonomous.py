@@ -36,8 +36,8 @@ class Brain(base.Brain):
             # if anything is detected by the sensors, stop the car
         stop = False
         #47,89,56 orig color
-        lower_green = np.array([0,39,6])
-        upper_green = np.array([80, 255, 80])
+        lower_green = np.array([36,0,0])
+        upper_green = np.array([86, 255, 255])
 
         for distance_sensor in self.distance_sensors:
             # Modify for sensor distance sensitivity
@@ -57,8 +57,8 @@ class Brain(base.Brain):
 
 
             image = cv2.imread('test_image1.jpeg')
-
-            mask = cv2.inRange(image, lower_green, upper_green)
+            hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+            mask = cv2.inRange(hsv_image, lower_green, upper_green)
             detected_output = cv2.bitwise_and(image, image, mask = mask)
             # Corrects upside down camera to right side up
             detected_output = cv2.rotate(detected_output, cv2.ROTATE_180)
