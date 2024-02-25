@@ -25,6 +25,7 @@ class Brain(base.Brain):
         
 
         def signal_handler(signal, frame):
+            self.vehicle.stop()
             print("You pressed Ctrl+C - or killed me with -2")
             exit(0)
         signal.signal(signal.SIGINT, signal_handler)
