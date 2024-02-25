@@ -70,14 +70,6 @@ class Brain(base.Brain):
             cv2.waitKey(0)
             print("max value" + max(detected_output.data))
 
-            
-
-
-
             # cv2.inRange(image, green_boundary)
-
-
-
-
-            if not stop:
-                self.vehicle.drive_forward()
+        if not stop:
+            self.vehicle.drive_forward()
