@@ -37,7 +37,7 @@ class Brain(base.Brain):
         stop = False
         #47,89,56 orig color
         lower_green = np.array([0,39,6])
-        upper_green = np.array([0, 255, 0])
+        upper_green = np.array([80, 255, 80])
 
         for distance_sensor in self.distance_sensors:
             # Modify for sensor distance sensitivity
