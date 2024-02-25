@@ -56,7 +56,7 @@ class Brain(base.Brain):
                 mask = cv2.inRange(hsv_image, lower_green, upper_green)
                 # Image Contouring
                 contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-                min_area = 1000  # Minimum area to be considered a cap
+                min_area = 3000  # Minimum area to be considered a cap
                 max_area = 10000  # Maximum area to be considered a cap
                 cap_contours = [cnt for cnt in contours if min_area < cv2.contourArea(cnt) < max_area]
                 # Check if a cap (target) is present
