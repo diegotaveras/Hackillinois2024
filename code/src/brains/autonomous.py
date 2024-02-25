@@ -4,6 +4,7 @@ from PIL import Image
 import cv2
 import time
 import numpy as np
+import signal
 
 class Config(base.Config):
     pass
@@ -23,7 +24,10 @@ class Brain(base.Brain):
         """If anything is detected by the distance_sensors, stop the car"""
         
 
-
+        def signal_handler(signal, frame):
+            print("You pressed Ctrl+C - or killed me with -2")
+            exit(0)
+        signal.signal(signal.SIGINT, signal_handler)
 
         total_seconds = 60
 
